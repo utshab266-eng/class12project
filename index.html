@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utshab Khatiwada - Portfolio</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.3s;
+        }
+
+        body.dark header {
+            background-color: #1e7e34;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+
+        #theme-toggle {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+            color: white;
+            text-align: center;
+            padding: 150px 20px 100px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #fff;
+            color: #28a745;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 20px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container h2 {
+            margin-bottom: 30px;
+            color: #28a745;
+            text-align: center;
+        }
+
+        body.dark .container h2 {
+            color: #4CAF50;
+        }
+
+        /* About Section - Photo Area */
+        .photo-area {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #28a745;
+            margin-bottom: 10px;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill h3 {
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            background-color: #28a745;
+            height: 100%;
+            transition: width 0.5s;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        body.dark .project {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+        }
+
+        .project img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section - Deactivation Note and Photo Upload */
+        .deactivation-note {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        body.dark .deactivation-note {
+            background-color: #333;
+            color: #ffcc00;
+        }
+
+        #contact-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        #contact-form input, #contact-form textarea, #contact-form label {
+            margin-bottom: 15px;
+        }
+
+        #contact-form input, #contact-form textarea {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        body.dark #contact-form input, body.dark #contact-form textarea {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        #contact-form input:focus, #contact-form textarea:focus {
+            border-color: #28a745;
+        }
+
+        #photo {
+            padding: 5px;
+        }
+
+        .photo-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        body.dark .photo-note {
+            color: #ccc;
+        }
+
+        #contact-form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #contact-form button:hover {
+            background-color: #1e7e34;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        body.dark footer {
+            background-color: #000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .section {
+                padding: 80px 20px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Utshab Khatiwada</div>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+
+    <section id="hero" class="section hero">
+        <div class="container">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Hi, I'm Utshab Khatiwada, a Class 12 Science student at Arniko College, Biratnagar. Passionate about web development and science.</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>I'm a dedicated student exploring the world of science and technology. I love building websites with HTML, CSS, and JavaScript to bring ideas to life. When not coding, I'm diving into physics, chemistry, and biology.</p>
+            <!-- Profile Photo Area: Add your image here (e.g., images/profile.jpg) -->
+            <div class="photo-area">
+                <img src="images/profile.jpg" alt="Utshab Khatiwada" class="profile-img" onerror="this.style.display='none';">
+                <p>If no image is uploaded, this area is for displaying your profile photo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill">
+                    <h3>HTML</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill">
+                    <h3>CSS</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
+                </div>
+                <div class="skill">
+                    <h3>JavaScript</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
+                </div>
+                <div class="skill">
+                    <h3>Web Development</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 75%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2>My Projects</h2>
+            <div class="projects-grid">
+                <div class="project">
+                    <h3>Personal Portfolio Website</h3>
+                    <p>A responsive website built with HTML, CSS, and JS to showcase my work. Includes interactive elements and a contact form.</p>
+                    <!-- <img src="images/project1.jpg" alt="Project 1"> -->
+                    <a href="#" class="btn">View Demo</a>
+                </div>
+                <div class="project">
+                    <h3>Simple Calculator App</h3>
+                    <p>A basic calculator using HTML, CSS, and JS for arithmetic operations. Demonstrates DOM manipulation.</p>
+                    <!-- <img src="images/project2.jpg" alt="Project 2"> -->
+                    <a href="#" class="btn">View Demo</a>
+                </div>
+                <div class="project">
+                    <h3>Science Quiz Game</h3>
+                    <p>An interactive quiz on science topics, built with JS for scoring and feedback. Ties into my studies.</p>
+                    <!-- <img src="images/project3.jpg" alt="Project 3"> -->
+                    <a href="#" class="btn">View Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section">
+        <div class="container">
+            <h2>Education</h2>
+            <ul>
+                <li><strong>Class 12 Science</strong> - Arniko College, Biratnagar (Current)</li>
+                <li><strong>Class 10</strong> - [Your Previous School, e.g., XYZ High School]</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <p class="deactivation-note">Note: I'm currently deactivated on social media for some days, so please use email only.</p>
+            <p>Let's connect! Reach out via email—I'm not active on social media right now.</p>
+            <form id="contact-form">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" placeholder="Your Message" required></textarea>
+                <!-- Photo Upload Area -->
+                <label for="photo">Attach a Photo (optional, for reference):</label>
+                <input type="file" id="photo" accept="image/*">
+                <p class="photo-note">Note: Photos can't be directly attached via email. Include it in your message or share a link.</p>
+                <button type="submit">Send Email</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Utshab Khatiwada. Built with HTML, CSS, and JS.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Fade-in effect on scroll
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            themeToggle.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+        });
+
+        // Contact form handling (mailto link with photo note)
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const photoInput = document.getElementById('photo');
+            const photoFile = photoInput.files[0];
+            const photoNote = photoFile ? `Photo attached: ${photoFile.name} (Note: Actual attachment not supported via mailto; please share via link or other means.)` : 'No photo attached.';
+            
+            const subject = `Portfolio Inquiry from ${name}`;
+            const body = `From: ${email}\n\n${message}\n\n${photoNote}`;
+            window.location.href = `mailto:your-email@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            // Replace 'your-email@example.com' with your actual email address
+        });
+    </script>
+</body>
+</html>
