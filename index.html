@@ -145,21 +145,6 @@
             color: #4CAF50;
         }
 
-        /* About Section - Photo Area */
-        .photo-area {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #28a745;
-            margin-bottom: 10px;
-        }
-
         /* Skills */
         .skills-grid {
             display: grid;
@@ -214,7 +199,7 @@
             margin-bottom: 15px;
         }
 
-        /* Contact Section - Deactivation Note and Photo Upload */
+        /* Contact Section - Deactivation Note */
         .deactivation-note {
             background-color: #fff3cd;
             color: #856404;
@@ -237,11 +222,8 @@
             margin: 0 auto;
         }
 
-        #contact-form input, #contact-form textarea, #contact-form label {
-            margin-bottom: 15px;
-        }
-
         #contact-form input, #contact-form textarea {
+            margin-bottom: 15px;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -256,20 +238,6 @@
 
         #contact-form input:focus, #contact-form textarea:focus {
             border-color: #28a745;
-        }
-
-        #photo {
-            padding: 5px;
-        }
-
-        .photo-note {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        body.dark .photo-note {
-            color: #ccc;
         }
 
         #contact-form button {
@@ -343,12 +311,7 @@
     <section id="about" class="section">
         <div class="container">
             <h2>About Me</h2>
-            <p>I'm a dedicated student exploring the world of science and technology. I love building websites with HTML, CSS, and JavaScript to bring ideas to life. When not coding, I'm diving into physics, chemistry, and biology.</p>
-            <!-- Profile Photo Area: Add your image here (e.g., images/profile.jpg) -->
-            <div class="photo-area">
-                <img src="images/profile.jpg" alt="Utshab Khatiwada" class="profile-img" onerror="this.style.display='none';">
-                <p>If no image is uploaded, this area is for displaying your profile photo.</p>
-            </div>
+            <p>I'm a dedicated student exploring the world of science and technology. I love building websites with HTML, CSS, and JavaScript to bring ideas to life. When not coding, I'm diving into physics, chemistry, and computer.</p>
         </div>
     </section>
 
@@ -421,10 +384,6 @@
                 <input type="text" id="name" placeholder="Your Name" required>
                 <input type="email" id="email" placeholder="Your Email" required>
                 <textarea id="message" placeholder="Your Message" required></textarea>
-                <!-- Photo Upload Area -->
-                <label for="photo">Attach a Photo (optional, for reference):</label>
-                <input type="file" id="photo" accept="image/*">
-                <p class="photo-note">Note: Photos can't be directly attached via email. Include it in your message or share a link.</p>
                 <button type="submit">Send Email</button>
             </form>
         </div>
@@ -463,18 +422,15 @@
             themeToggle.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
         });
 
-        // Contact form handling (mailto link with photo note)
+        // Contact form handling (mailto link)
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
-            const photoInput = document.getElementById('photo');
-            const photoFile = photoInput.files[0];
-            const photoNote = photoFile ? `Photo attached: ${photoFile.name} (Note: Actual attachment not supported via mailto; please share via link or other means.)` : 'No photo attached.';
             
             const subject = `Portfolio Inquiry from ${name}`;
-            const body = `From: ${email}\n\n${message}\n\n${photoNote}`;
+            const body = `From: ${email}\n\n${message}`;
             window.location.href = `mailto:your-email@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             // Replace 'your-email@example.com' with your actual email address
         });
